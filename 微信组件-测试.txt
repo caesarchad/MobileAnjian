@@ -3,7 +3,7 @@
 //RunApp "com.tencent.mm",".plugin.profile.ui.ContactInfoUI"
 
 
-//��������
+//进入设置
 //RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsUI"
 
 
@@ -13,19 +13,66 @@
 
 //RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingDeleteAccountUI"
 
-//����--�˻��밲ȫ
+//设置--账户与安全
 //RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsAccountInfoUI"
 
-//��ȫ����
+//安全设置
 //RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsSafeUI"
 
-//ɾ���˺�Э�� ��ʱ������
+//删除账号协议 暂时不可用
 //RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingDeleteAccountAgreementUI"
 
-//΢����ҳ�� �Ƴ���ǰ
+//微信网页版 推出当前
 //RunApp "com.tencent.mm",".plugin.webwx.ui.WebWXLogoutUI"
 
 //RunApp "com.tencent.mm",".ui.chatting.ChattingUI"
 
-//Ⱥ���б�
+//群聊列表
 RunApp "com.tencent.mm",".ui.contact.ChatroomContactUI"
+
+
+
+RunApp "com.tencent.mm", ".plugin.sns.ui.SnsTimeLineUI" '朋友圈
+
+RunApp "com.tencent.mm", ".plugin.sns.ui.SnsMsgUI" // 朋友圈回复给我的消息
+
+RunApp "com.tencent.mm", ".plugin.sns.ui.SettingSnsBackgroundUI" // 挑选图片或者拍照更换相册封面
+
+RunApp "com.tencent.mm", ".plugin.sns.ui.ArtistUI" // 从摄影师作品挑选
+
+RunApp "com.tencent.mm", ".plugin.sns.ui.SnsTagUI" // 选择可见范围
+
+RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatUI" // 聊天记录备份和恢复
+
+RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatRecoverCheckUI" // 恢复聊天记录
+
+RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatUploadSelectUI" // 备份聊天记录，选择联系人
+
+RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatUploadingUI" // 上传聊天记录（上传中）
+
+RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatRecoveringUI" // 下载聊天记录（下载中）
+
+RunApp "com.tencent.mm", ".plugin.backup.ui.BakchatSetCryptUI" //对上传或者下载设置密码
+
+RunApp "com.tencent.mm", ".plugin.game.ui.GameCenterUI" // 微信游戏相关
+
+RunApp "com.tencent.mm", ".plugin.nearby.ui.NearbyFriendsIntroUI" // 附近的人相关操作
+
+RunApp "com.tencent.mm", ".plugin.shake.ui.ShakePersonalInfoUI" //摇一摇设置
+
+RunApp "com.tencent.mm", ".plugin.qqmail.ui.RoomInfoShareQrUI" // 邮件相关
+
+RunApp "com.tencent.mm", ".plugin.mall.ui.MallIndexUI" // 我的钱包相关
+
+RunApp "com.tencent.mm", ".ui.pluginapp.AddMoreFriendsUI" // 添加好友页面
+
+RunApp "com.tencent.mm", ".ui.contact.SayHiEditUI" // 打招呼
+
+RunApp "com.tencent.mm", ".plugin.masssend.ui.MassSendSelectContactUI" // 群发助手相关
+
+RunApp "com.tencent.mm", ".ui.openapi.AddAppUI" // 添加工具
+
+RunApp "com.tencent.mm", ".ui.qrcode.ShowQRCodeStep1UI" // 分享二维码
+
+RunApp "com.tencent.mm", ".plugin.scanner.ui.BaseScanUI" // 扫描二维码
+RunApp "com.tencent.mm", ".plugin.shake.ui.ShakeReportUI" //进入摇一摇
