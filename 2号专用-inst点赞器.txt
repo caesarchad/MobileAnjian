@@ -1,0 +1,285 @@
+//思路1-使用网页打开Instagram.com点赞
+//思路2-使用网页打开Instagram.com点赞
+//思路3-使用instagram
+//本脚本暂时使用instagram 客户端进行点赞
+//1-给别人点赞，关注，留言,以获得关注
+
+//setup 留言字典
+dim word1=array("absorbing","abstract","acclaimed","accomplished","adroit","aesthetic","aesthetically pleasing","aggressive","appealing","artistic")
+dim word2=array("astonishing","atmospheric","authentic","avant-garde","award-winning","awe-inspiring","balanced","baroque","beautiful","bold")
+dim word3=array("boundless","brilliant","candid","ceramic","characteristic","classic","collectable","colorful","complementary","complex")
+dim word4=array("dazzling","decorative","deeply thoughtful","delicate","dense","detailed","dimensional","disciplined","disruptive","distinctive")
+dim word5=array("distinguished","divine","dreamlike","dreamy","dynamic","eclectic","elevated","elevating","emergent","emerging")
+Dim dlmtr=array("!!!!"," :) "," !!"," and "," ,also a little bit ",", that is really ", ", a art work of ",", it is truly ",", it is ",", a masterpiece of ")
+
+Dim 随机留言
+
+
+Dim idx1,idx2,idx3,idx4,idx5,idx6
+
+
+Do until 1>2
+//启动inst
+KillApp "com.instagram.android"
+delay 3000
+RunApp "com.instagram.android"
+delay 3000
+
+Tap 221,1222
+Delay 1500
+//点击放大镜
+Tap 73,99
+Delay 1500
+
+
+Dim tags_array(33)
+tags_array(1)="#contemporaryartcurator"
+tags_array(2)="#fineart"
+tags_array(3)="#artcollector"
+tags_array(4)="#contemporaryart"
+tags_array(5)="#figurativeart"
+tags_array(6)="#paintingart"
+tags_array(7)="#oilpainting"
+tags_array(8)="#contemporaryartist"
+tags_array(9)="#instaartistic"
+tags_array(10)="#artwork"
+tags_array(11)="#fineart"
+tags_array(12)="#oilpainting"
+tags_array(13)="#oiloncanvas"
+tags_array(14)="#artstagram"
+tags_array(15)="#painting"
+tags_array(16)="#artwork"
+tags_array(17)="#artworks"
+tags_array(18)="#worldofartists"
+tags_array(19)="#instaart"
+tags_array(20)="#sketchoftheday"
+tags_array(21)="#artoftheday"
+tags_array(22)="#instapaint"
+tags_array(23)="#bestartfeatures"
+tags_array(24)="#arts_help"
+tags_array(25)="#pittura"
+tags_array(26)="#instartlovers"
+tags_array(27)="#art_community"
+tags_array(28)="#art_realistique"
+tags_array(29)="#artistoninstagram"
+tags_array(30)="#contemporarypainint"
+tags_array(31)="#paintingoftheday"
+tags_array(32)="#art_collective"
+tags_array(33)="#portraitart"
+InputText tags_array(随机数(1,33))
+Delay 5000
+
+
+Tap 457,202
+delay 3000
+Tap 308,307
+delay 3000
+
+
+Dim gao=GetScreenY()
+Dim kuan=GetScreenX()
+
+//翻页一次就可以了,原来翻两次很多新贴子都没点上
+call 滑动(1*kuan/5,9*gao/10,gao*1/10,200,200)
+delay 3000
+ 
+ 
+
+Tap  int(1*kuan/6),int(1*gao/2)
+Delay 2500
+//looking for white heart
+Dim intX,intY
+//翻页200 次
+For 200
+//For 3
+FindPic 0,0, int(kuan/6), gao , "Attachment:whiteheart.png", 0 , 0, 0.9, intX, intY 
+Delay 2500
+//Next
+TracePrint "白色心 坐标返回值： ",intX,intY
+If intX>0 and intY>0
+	Tap intX,intY
+	Delay 1000
+	
+	
+	
+	//Call 留言
+	Delay 5000
+Else	
+	TracePrint "白色心型 没有找到"
+End If
+
+//follow and unfollow those like this art
+Call follow_and_unfollow ()
+
+delay 3000
+
+Call 滑动(int(1*kuan/5),int(9*gao/10),int(gao*4/10),200,200)
+
+delay 3000
+
+Next
+
+Loop
+	
+ 
+
+
+
+EndScript
+
+Sub 滑动(x,y,hy,speed,sleep)//参数分别为：x坐标,y坐标,y结束时的坐标(即滑动到的第二点时y点坐标)，移动速度(单位像素,越大越快),停顿时间(单位毫秒,越小越快)
+touchDown x,y 
+while y > hy  
+y=y-speed//上划用"-",下划用"+"
+Delay sleep
+touchMove x,y
+wend
+touchUp
+End Sub
+
+
+Function 随机数(最小值,最大值)
+	随机数=Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+End Function
+Sub 留言()
+		//留言
+	Tap intX+90,intY
+	delay 3000
+	Dim timenbr=time()
+	idx1=Mid(timenbr,10,1)
+	Delay 1000
+	timenbr=time()
+	idx2=Mid(timenbr,9,1)
+	Delay 1000
+	timenbr=time()
+	idx3=Mid(timenbr,10,1)
+	Delay 1000
+	
+	timenbr=time()
+	idx4=Mid(timenbr,9,1)
+	Delay 1000
+	timenbr=time()
+	idx5=Mid(timenbr,10,1)
+	idx6=随机数(0,9)
+	随机留言=word1(idx1)&dlmtr(idx6)
+	idx6=随机数(0,9)
+	随机留言=随机留言&word2(idx2)&dlmtr(idx6)
+	idx6=随机数(0,9)
+	随机留言=随机留言&word3(idx3)&dlmtr(idx6)
+	idx6=随机数(0,9)
+	随机留言=随机留言&word4(idx4)&dlmtr(idx6)
+	idx6=随机数(0,9)
+	随机留言=随机留言&word5(idx5)
+	TracePrint  随机留言
+	InputText 随机留言
+	delay 3000
+	Tap 665,1225
+	Delay 2500
+	KeyPress "Back"
+	delay 3000
+	KeyPress "Back"
+	delay 3000	
+	End Sub
+
+Sub follow_and_unfollow ()
+
+	Dim  blueIntX,blueIntY
+	//For 3
+		FindPic 0,0, kuan/3, gao , "Attachment:zan_kanji.png", 0 , 0, 0.9, blueIntX,blueIntY
+		Delay 2500
+	//Next
+	If blueIntX>0 and blueIntY>0 Then
+			//找到了 则进入查看点赞的人的列表
+			//需要点 蓝色心行 后面的数字
+			TracePrint "赞字在 "&blueIntX&","&blueIntY
+			delay 3000
+			Tap blueIntX+5,blueIntY+5
+			Delay 3000
+			//第一个点赞的人
+			For 2
+				FindPic 472,189,677,232, "Attachment:guanzhu.png", 0 , 0, 0.9, intX,intY
+			Next
+			Delay 2500
+			If intX>0 and intY>0
+				TracePrint "找到关注 字样"
+				Tap 567,213
+				delay 3000
+				Tap 567,213
+			
+				Call confirm_unfollow()
+			
+			Else 
+				TracePrint "第1个点赞的人 没有找到关注字样，或许是空白"
+			
+			End If
+			//第2个点赞的人
+			For 2
+				FindPic 467,313,682,362, "Attachment:guanzhu.png", 0 , 0, 0.9, intX,intY
+			Next
+			Delay 2500
+			If intX>0 and intY>0
+				TracePrint "找到关注 字样"
+				Tap intX,intY
+				delay 3000
+				Tap intX,intY
+				Call confirm_unfollow()
+			Else 
+				TracePrint "第2个点赞的人 没有找到关注字样，或许是空白"
+			
+			End If
+			
+			//第3个点赞的人
+			For 2
+				FindPic 469,442,686,488, "Attachment:guanzhu.png", 0 , 0, 0.9, intX,intY
+			Next
+			Delay 2500
+			If intX>0 and intY>0
+				TracePrint "找到关注 字样"
+				Tap intX,intY
+				delay 3000
+				Tap intX,intY
+				Call confirm_unfollow()
+			Else 
+				TracePrint "第3个点赞的人 没有找到关注字样，或许是空白"
+			
+			End If
+			
+			//第4个点赞的人
+			For 2
+				FindPic 468,569,686,618, "Attachment:guanzhu.png", 0 , 0, 0.9, intX,intY
+			Next
+			Delay 2500
+			If intX>0 and intY>0
+				TracePrint "找到关注 字样"
+				Tap intX,intY
+				delay 3000
+				Tap intX,intY
+				Call confirm_unfollow()
+			Else 
+				TracePrint "第四个点赞的人 没有找到关注字样，或许是空白"
+			End If
+			 
+			 
+			TracePrint "点击返回上一层"
+			Delay 3000
+			KeyPress "Back"
+			Delay 3000
+			
+	End If
+	
+End Sub
+
+Sub confirm_unfollow()
+	Dim unfl_X,unfl_Y
+	For 2
+		FindPic 0,1*gao/2,kuan,gao,"Attachment:stopfollow.png", 0 , 0, 0.9, unfl_X,unfl_Y
+	Next
+	If unfl_X>0 and unfl_Y>0 Then
+		TracePrint "找到  停止关注 字样, 点击 495,836"
+		Delay 3000
+		Tap 495,836
+		Delay 2000
+	Else
+		TracePrint "没有找到 停止关注 字样"
+	End If
+End Sub

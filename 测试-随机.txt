@@ -1,0 +1,28 @@
+ 
+
+//
+dim comments=array("lovely","wonderful","enjoy it","fantastic","awesome","gorgeous","faboulous")
+TracePrint UBound(comments)
+
+
+  
+//要产生指定范围的随机整数，请使用以下公式： 
+//Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+//例如产生2到6之间的随机数: 
+  
+TracePrint comments(随机数(1,UBound(comments)))
+
+
+EndScript
+
+Function 随机数(最小值,最大值)
+	随机数=Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+End Function
+
+Function 自制UBound(arr)
+    Dim i:i=0
+    For Each a In arr 
+        i=i+1
+    Next
+    自制UBound=i
+End Function

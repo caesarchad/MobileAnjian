@@ -1,0 +1,31 @@
+//RunApp "com.tencent.mm",".plugin.subapp.ui.openapi.AppProfileUI"
+
+//RunApp "com.tencent.mm",".plugin.profile.ui.ContactInfoUI"
+
+
+//进入设置
+//RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsUI"
+
+
+//
+//RunApp "com.tencent.mm",".plugin.sns.ui.SettingSnsBackgroundUI"
+
+
+//RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingDeleteAccountUI"
+
+//设置--账户与安全
+//RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsAccountInfoUI"
+
+//安全设置
+//RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsSafeUI"
+
+//删除账号协议 暂时不可用
+//RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingDeleteAccountAgreementUI"
+
+//微信网页版 推出当前
+//RunApp "com.tencent.mm",".plugin.webwx.ui.WebWXLogoutUI"
+
+//RunApp "com.tencent.mm",".ui.chatting.ChattingUI"
+
+//群聊列表
+RunApp "com.tencent.mm",".ui.contact.ChatroomContactUI"

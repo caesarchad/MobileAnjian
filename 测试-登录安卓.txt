@@ -1,0 +1,203 @@
+Dim username, pass
+Dim n=1
+Dim intX,intY
+Dim gao=GetScreenY()
+Dim kuan=GetScreenX()
+
+//运行之前 必须先推出当前
+Do until n>100
+username=ReadUIConfig("account"&n)
+pass=ReadUIConfig("pass"&n)
+If username="" then
+	TracePrint "username is null"
+	EndScript
+End If
+TracePrint username," ",pass
+Call Main(username,pass)
+
+n=n+1
+Loop
+
+
+EndScript
+
+Function dly()
+	Delay 3000
+End Function
+
+Function Main(username,pass)
+//close Wechat	
+KillApp "com.tencent.mm"
+Call dly()
+//start Wechat
+RunApp "com.tencent.mm"
+Call dly()
+RunApp "com.tencent.mm",".ui.account.LoginUI"
+Call dly()
+InputText username
+Call dly()
+//点击 输入密码的地方
+Touch 241,319,500
+Call dly()
+InputText pass
+Call dly()
+//点击 登录
+Touch 351,483,500
+
+//等系统反应登录
+For 10
+	Call dly()
+Next
+
+
+
+//查找大号
+Touch 525,89,200
+Call dly()
+InputText "shuang7art"
+Call dly()
+Touch 77,300,200
+Call dly()
+//进入了和一鸣的聊天界面，点击右上角白人
+Touch 666,87,200
+Call dly()
+//聊天信息 
+Touch 100,260,200
+Call dly()
+//进入个人相册
+Touch 123,710,200
+Call dly()
+
+//点击四个文章，将他们收藏起来
+Call 收藏(220,929)
+Call 收藏(235,1058)
+Call 收藏(228,1161)
+Call 收藏(239,1239)
+
+Call 群聊列表()
+ 
+
+
+
+
+//给11个群聊 发图文
+Call 发图文(64,243)
+Call 发图文(51,333)
+Call 发图文(71,455)
+Call 发图文(80,555)
+Call 发图文(56,666)
+Call 发图文(65,780)
+Call 发图文(68,870)
+Call 发图文(67,969)
+Call 发图文(91,1097)
+Call 发图文(61,1184)
+Call 发图文(317,1271)
+
+
+
+
+
+
+For 15
+	Call dly()
+Next
+
+
+
+//退出当前账号
+Call dly()
+RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsUI"
+Call dly()
+FindPic 0,0, int(kuan/6), gao , "Attachment:tuichu-1280x720.png", 0 , 0, 0.9, intX, intY 
+Call dly()
+TracePrint  intX,intY
+Tap intX,intY
+Call dly()
+//选择退出当前账号
+Tap 299,606
+Call dly()
+//确认推出
+Tap 534,751
+For 5
+Call dly()
+Next
+End Function
+
+
+Function 收藏(intX,intY)
+//进入图文
+Touch intX,intY,200
+Call dly()
+Touch 165,293,200
+Call dly()
+//等待加载图文
+Delay 6000
+//收藏该图文
+Touch 664,87,200
+Call dly()
+Touch 339,412,200
+Call dly()
+Call 检查弹出窗口()
+KeyPress "BACK"
+Call dly()
+KeyPress "BACK"
+Call dly()
+
+	
+End Function
+
+
+Function 发图文(intX,intY)
+	Call dly()
+	Touch intX,intY,200
+	Call dly()
+	Call dly()
+	Call dly()
+	//点击加号
+	Touch 656,1219,200
+	Call dly()
+	
+	Call 我的收藏(121,346)
+	Call 我的收藏(119,600)
+	Call 我的收藏(109,932)
+	Call 我的收藏(88,1215)
+		
+	
+	Call 群聊列表()
+	
+End Function
+
+Function 群聊列表()
+	//群聊列表
+	Call dly()
+	RunApp "com.tencent.mm",".ui.contact.ChatroomContactUI"
+	Call dly()
+End Function
+
+
+Function 我的收藏(intX,intY)
+	
+		//点击 我的收藏
+		Touch 444,836,200
+		Call dly()
+		//点击图文坐标
+		Touch intX,intY,200
+		Call dly()
+		//确定发送
+		Touch 544,805,200
+		//等待系统
+		Delay 4000
+		
+End Function
+
+Function 检查弹出窗口()
+	Dim intX,intY
+	Delay 2000
+	For 3
+		FindPic 113,470,375,537 , "Attachment:ruhechakanshoucang-1280x720", 0 , 0, 0.9, intX, intY
+	next
+	if intX>0 and intY>0
+			Touch 543,824,200
+			Delay 3000
+	End If 
+End Function

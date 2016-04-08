@@ -1,0 +1,363 @@
+//机器型号 联想At60
+//微信版本 6.3.11
+//实现功能 一键聊天群添加好友
+//获取屏幕尺寸
+
+//===================
+//思路
+//===================
+//进入群成员列表
+//逐个点击 有如下情况
+//         陌生人
+//               需要验证
+//               直接添加
+//         
+//         好友
+
+
+//===================
+//声明区域
+//===================
+Dim kuan= GetScreenX()
+Dim gao=GetScreenY()
+//定义通讯录坐标
+Dim TXLx
+Dim TXLy
+//群聊列表坐标
+Dim QLx
+Dim QLy
+Dim page="" //页面标识符
+//1.进入通讯录
+//  通讯录的X=3/8 屏幕宽度
+//  通讯录的Y=15/16 屏幕高度
+TXLx=kuan*3/8
+TXLy=gao*24/25
+Tap TXLx,TXLy
+Delay 2000
+
+
+
+//2.查找群聊
+//
+//3.进入群聊列
+//  点击进入群聊列
+
+QLx=kuan*1/2
+QLy=gao*6/25
+Tap QLx,QLy
+Delay 2000
+
+
+
+//  
+//  群聊列表中，第一个页面,有10个群聊出现，可以进入，使用循环10次
+//  每个群聊的位置依次为
+//  5,7,9,11,13,15,17,19,21,23/25 个高度
+//  正则表达为2n+3
+Dim x=0,y=0,n=1
+//
+//=============
+//==LoopA  Begins 群聊列表的循环
+//=============
+//
+
+//  进入第一个群聊(n=1)
+x=kuan/2
+y=gao*(2*n+3)/25
+Tap x,y
+Delay 2000
+
+//*******************************************************
+//*
+//*     步骤1    *找图，图标，进入群聊信息页面
+//*
+//******************************************************* 
+
+ Dim 查找方式
+ //找三遍图，如果找到则跳出
+ For 3
+ FindPic kuan * 2/ 3, 0, kuan, gao / 3, "Attachment:two-dudes.png", "000000" , 0, 0.9, x, y 
+ 
+ If x>0 and y>0 Then 
+  	
+  	
+  	查找方式="找图"
+  	
+  	Exit For
+ End If
+ 
+ 
+ //如果通过找图的方式不能找到，则通过找点的方式，从右上往左下找一个小区域
+ //利用颜色找点，选择图片的边缘颜色确定图标位置
+ FindColor  kuan*14/16, 30, kuan, gao*2/ 25, "CECCCC", 4, 1, x, y
+	If x >= 0 And y >= 0
+		//移到中心位置
+	    x = x - 20
+		y = y + 20
+		 
+	    查找方式="找图"
+		Exit For
+    End if
+    Delay 1000
+    
+ Next
+If x < 0 Or y < 0
+	ShowMessage "没有找到群聊成员列表的图标按钮，脚本退出"
+	EndScript
+End If
+
+
+ If x>0 and y>0
+ //如果找到则进入群聊信息页面
+  	ShowMessage "找到群聊成员列表的图标按钮，查找方式："&查找方式
+  	Delay 2000
+  	Tap x,y
+  	Delay 2000
+ End If
+  
+
+  
+//*******************************************************
+//*     
+//*步骤2    *如果步骤1成功，则已经在群聊的信息页面，进入‘全部群成员’列表 
+//* 
+//******************************************************* 
+
+//找图，翻页，一直到找到为止
+Delay 3000
+Dim 找到=False,loopcnt=0
+Do  Until 找到=True
+
+
+//找三遍图，找到则退出
+	For 3
+		FindPic 0 ,0, kuan, gao , "Attachment:qbqcy.png", "424244-434344" , 0, 0.9, x, y 
+		    If x>0 and y>0 Then 
+  	            查找方式="找图"
+                ShowMessage "找到 全部群成员 字样，查找方式："&查找方式
+  	            Delay 2000
+  	            找到=True
+            End If
+ 
+ 
+            If x < 0 Or y < 0
+	            ShowMessage "没有找到 全部群成员 字样，继续查找"
+	            Delay 2000
+	            找到=False
+            End If
+	Next
+	
+//找到图，退出
+    If 找到=True 
+        	Exit Do
+    End If
+//没有找到
+//如果循环大于10次，则报错退出，并提示
+	If loopcnt>10
+		ShowMessage "没有找到需要找的东西，翻页次数："&loopcnt
+		TracePrint"没有找到需要找的东西，翻页次数："&loopcnt
+		Delay 2000
+	    EndScript
+	End If
+		
+//翻页继续
+滑动(100,gao*15/25,gao*6/25,100,200)
+
+loopcnt=loopcnt+1
+
+
+Loop
+
+//找到 ‘全部群成员’列表，点击进入，否则退出报错
+If 找到=True
+	Tap x,y
+	Delay 2000
+Else
+    //没有找到，
+    TracePrint "没有找到 群成员 列表，报错退出"
+    EndScript
+End If
+
+//*******************************************************
+//*     
+//*步骤3   *第一页10个群成员逐个添加，然后翻页 
+//* 
+//******************************************************* 
+For 50
+  Dim 步骤3_loop_cnt=1
+  do until  步骤3_loop_cnt>7
+    	x=kuan*2/16
+    	y=gao*7/25+gao/10*步骤3_loop_cnt
+    	Tap x,y
+    	Delay 5000
+        TracePrint "现在应该点击进入了第",步骤3_loop_cnt,"个群成员的联系人页面"	
+  		
+		//================
+		//================检查什么页面，陌生人，还是好友 
+		//找 添加通讯录字样 找不到 则找 发信息 字样 都找不到 报错 
+		For 3
+		//找三遍 寻找通讯录字样
+			FindPic 0 ,0, kuan, gao , "Attachment:tjtxl.png", "addbbc-502442" , 6, 0.9, x, y  
+		next
+ 
+
+
+If x>0 and y>0 Then
+        查找方式="找图"
+  	    TracePrint "找到了，查找方式："&查找方式
+  	    Delay 2000
+  	    page="陌生人"
+  	Else
+  	    TracePrint "===没==找===到===通讯录==字样"
+	    Delay 2000
+	    For 3
+		//找三遍 寻找发消息字样
+			x=0
+			y=0
+			KeepCapture
+ 			FindPic 0 ,0, kuan, gao , "Attachment:fxy.png", "addbbc-502442" , 6, 0.9, x, y 
+ 			ReleaseCapture
+		Next
+		If x>0 and y>0 Then
+        	查找方式="找图"
+  	    	TracePrint "找到了，查找方式："&查找方式
+  	    	Delay 2000
+  	    	page="好友"
+  		Else
+  	    	TracePrint "===没==找===到===发消息==字样"
+	    	Delay 2000
+		End If
+ End If
+
+//通讯录字样的色偏值
+//RGB--BCDBAD-422450
+//BGR--addbbc-502442
+
+TracePrint page
+
+Select Case  page
+    Case "陌生人"
+        TracePrint "这是一个陌生人" 
+        Call 陌生人()
+        KeyPress "Back"
+	    Delay 2000
+    Case "好友"
+        TracePrint "这是一个好友" 
+        KeyPress "Back"
+	    Delay 2000
+	    //EndScript
+    Case Else
+        TracePrint "好像有什么错误"
+        EndScript
+End Select
+TracePrint "运行正确则应该在群成员列表界面"
+  步骤3_loop_cnt=步骤3_loop_cnt+1
+Loop
+
+//第一页的好友都添加完成
+//翻页
+ 
+Call 滑动(40,gao*24/25,gao*4/25,200,100)
+ 
+next 
+ 
+ 
+
+//
+//=============
+//==LoopA Ends
+//=============
+//
+
+
+EndScript
+
+
+Sub 滑动(x,y,hy,speed,sleep)//参数分别为：x坐标,y坐标,y结束时的坐标(即滑动到的第二点时y点坐标)，移动速度(单位像素,越大越快),停顿时间(单位毫秒,越小越快)
+touchDown x,y 
+while y > hy 
+y=y-speed//上划用"-",下划用"+"
+Delay sleep
+touchMove x,y
+wend
+touchUp
+End Sub
+
+
+Sub 陌生人() //在陌生人页面的情况下 添加好友
+//================当前位于陌生人界面
+
+//点击添加好友
+Tap x,y
+//等待返回页面
+Delay 15000
+
+//检测返回页面
+//寻找’发送‘绿色按钮 ，找到，则是验证申请页面，没有找到，去找 ‘发消息’ 字样，
+//
+
+For 3
+//找三遍 寻找 发送 字样
+	FindPic kuan*2/3 ,30, kuan, gao/3 , "Attachment:fasong.png", "addbbc-502442" , 0, 0.9, x, y 
+Next
+
+If x<0 or y<0 then
+	For 3
+//如果找图失败，在用多点找色试试
+		FindMultiColor  kuan*2/3 ,30, kuan, gao/3 , "1AC045","28|8|A0E5B2,30|-1|D0F2D9,23|23|4ACD6C", 4, 0.9, x , y
+		
+	Next 
+End If
+
+If x>0 and y>0 Then
+        查找方式="找图"
+  	    TracePrint "找到了，查找方式："&查找方式
+  	    TracePrint "x: "&x
+  	    TracePrint "y: "&y
+  	    Delay 2000
+  	    page="验证申请"
+  	Else
+  	    TracePrint "===没==找===到===发送==字样"
+  	    TracePrint "x: "&x
+  	    TracePrint "y: "&y
+	    Delay 2000
+	    For 3
+		//找三遍 寻找发消息字样
+			x=0
+			y=0
+			KeepCapture
+ 			FindPic 0 ,0, kuan, gao , "Attachment:fxy.png", "addbbc-502442" , 6, 0.9, x, y 
+		    ReleaseCapture
+		Next
+		If x>0 and y>0 Then
+        	查找方式="找图"
+  	    	TracePrint "找到了，查找方式："&查找方式
+  	    	Delay 2000
+  	    	page="好友"
+  		Else
+  	    	TracePrint "===没==找===到===发消息==字样"
+	    	Delay 2000
+	    	TracePrint "好像有什么问题，L98"
+		End If
+ End If
+ 
+ TracePrint page
+ Select Case  page
+    Case "验证申请"
+        TracePrint "这是 验证申请页面" 
+        Tap x,y
+        Delay 15000
+    Case "好友"
+        TracePrint "这是一个好友" 
+        KeyPress "Back"
+	    Delay 2000
+    Case Else
+        TracePrint "好像有什么错误"
+        EndScript
+End Select
+
+
+
+End Sub
+
+

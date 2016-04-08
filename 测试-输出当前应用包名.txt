@@ -1,0 +1,3 @@
+Dim 返回值
+返回值=Sys.GetFront()
+TracePrint 返回值

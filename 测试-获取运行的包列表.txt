@@ -1,0 +1,5 @@
+Dim arr() //定义一个数组变量
+arr=GetRunningApp() //获取所有应用程序包名并将它们合并到arr数组中保存
+For each n in arr
+    TracePrint n //遍历arr数组并输出所有获取的包名字符
+Next
