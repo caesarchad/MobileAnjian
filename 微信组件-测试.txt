@@ -76,3 +76,65 @@ RunApp "com.tencent.mm", ".ui.qrcode.ShowQRCodeStep1UI" // 分享二维码
 
 RunApp "com.tencent.mm", ".plugin.scanner.ui.BaseScanUI" // 扫描二维码
 RunApp "com.tencent.mm", ".plugin.shake.ui.ShakeReportUI" //进入摇一摇
+
+
+//RunApp "com.tencent.mm", ".plugin.backup.ui.BakchatSelcetCryptUI"
+//设置聊天记录密码和上传聊天记录的页面
+//RunApp "com.tencent.mm", ".plugin.backup.ui.BakchatSetCryptUI"
+//设置聊天记录上传密码
+//RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatUploadSelectUI"
+//备份聊天记录，选择要上传的联系人
+//RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatUI"
+//聊天记录备份和恢复
+//RunApp "com.tencent.mm", ".plugin.backup.ui.BakChatRecoverCheckUI"
+//下载聊天记录
+//RunApp "com.tencent.mm", ".plugin.shake.ui.ShakePersonalInfoUI"
+//摇一摇设置
+//RunApp "com.tencent.mm", ".plugin.sns.ui.SnsTagPartlyUI"
+//朋友圈分组，在朋友圈发布照片时，可指定部分分组朋友可见
+//RunApp "com.tencent.mm", ".plugin.sns.ui.SnsTagUI"
+//朋友圈分组，谁可以看朋友圈
+//RunApp "com.tencent.mm", ".plugin.sns.ui.SettingSnsBackgroundUI" 
+//挑选图片或者拍照更换相册封面
+//RunApp "com.tencent.mm", ".plugin.sns.ui.ArtistUI"
+//更换相册封面从摄影师作品挑选
+//RunApp "com.tencent.mm", ".plugin.nearby.ui.NearbyFriendsIntroUI"
+// 附近的人相关操作
+//RunApp "com.tencent.mm", ".plugin.game.ui.GameCenterUI"
+//微信游戏相关
+//RunApp "com.tencent.mm", ".plugin.shake.ui.ShakePersonalInfoUI"
+//摇一摇设置
+//RunApp "com.tencent.mm", ".plugin.sns.ui.SnsTimeLineUI"
+//朋友圈
+//RunApp "com.tencent.mm", ".plugin.sns.ui.SnsMsgUI" 
+//朋友圈回复给我的消息
+//RunApp "com.tencent.mm", ".plugin.qqmail.ui.RoomInfoShareQrUI"
+//邮件相关
+//RunApp "com.tencent.mm", ".plugin.mall.ui.MallIndexUI"
+//我的钱包相关
+//RunApp "com.tencent.mm", ".plugin.masssend.ui.MassSendSelectContactUI" 
+//群发助手相关
+//RunApp "com.tencent.mm", ".plugin.scanner.ui.BaseScanUI"
+//扫描二维码
+//RunApp "com.tencent.mm", ".plugin.bottle.ui.BottleWizardStep1"
+//漂流瓶设置头像
+//RunApp "com.tencent.mm",".plugin.bottle.ui.BottleWizardStep2" 
+//漂流瓶设置个人信息
+//RunApp "com.tencent.mm",".plugin.bottle.ui.BottleBeachUI" 
+//漂流瓶界面
+//RunApp "com.tencent.mm",".plugin.bottle.ui.BottleConversationUI" 
+//我的瓶子
+//RunApp "com.tencent.mm", ".plugin.bottle.ui.BottlePersonalInfoUI"
+//漂流瓶设置界面
+//RunApp "com.tencent.mm", ".plugin.sns.ui.SnsUploadUI"
+//发送微信图文朋友圈 
+//RunApp "com.tencent.mm",".plugin.sns.ui.SnsLongMsgUI" 
+//发送微信文字朋友圈
+//RunApp "com.tencent.mm", ".plugin.radar.ui.RadarSearchUI"
+//雷达加好友
+//RunApp "com.tencent.mm", ".plugin.nearby.ui.NearbySayHiListUI"
+//附近向你打招呼的人
+//RunApp "com.tencent.mm",".plugin.brandservice.ui.BrandServiceIndexUI" 
+//微信公众号
+//RunApp "com.tencent.mm",".plugin.brandservice.ui.SearchOrRecommendBizUI"
+//搜索微信公众号
