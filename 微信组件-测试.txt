@@ -138,3 +138,9 @@ RunApp "com.tencent.mm", ".plugin.shake.ui.ShakeReportUI" //进入摇一摇
 //微信公众号
 //RunApp "com.tencent.mm",".plugin.brandservice.ui.SearchOrRecommendBizUI"
 //搜索微信公众号
+//RunApp "com.tencent.mm", ".ui.contact.ChatroomContactUI"
+//RunApp "com.tencent.mm", ".plugin.chatroom.ui.ChatroomInfoUI" --死机
+//RunApp "com.tencent.mm", ".plugin.chatroom.ui.SeeRoomMemberUI"　--死机
+//RunApp "com.tencent.mm", ".BizChatroomInfoUI" --无反应
+//RunApp "com.tencent.mm", ".plugin.chatroom.ui.RoomCardUI" //群公告
+//RunApp "com.tencent.mm", ".plugin.chatroom.ui.RoomInfoDetailUI" //--死机
