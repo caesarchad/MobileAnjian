@@ -1,8 +1,0 @@
-
-
-Dim txt_srk
-txt_srk=ReadUIConfig(" ‰»ÎøÚ1")
-TracePrint txt_srk
-
-ShowMessage txt_srk
-Delay 20000

@@ -1,0 +1,30 @@
+KeyPress Back
+
+Dim gao=GetScreenY()
+Dim kuan=GetScreenX()
+
+TracePrint Gao ,gao
+TracePrint Kuan ,kuan
+
+ TracePrint 返回上一页
+			KeyPress Back
+			Delay 3000
+KeyPress PageDown
+
+call 滑动(1kuan5,7gao10,gao410,200,200)
+
+
+
+
+
+EndScript
+
+Sub 滑动(x,y,hy,speed,sleep)参数分别为：x坐标,y坐标,y结束时的坐标(即滑动到的第二点时y点坐标)，移动速度(单位像素,越大越快),停顿时间(单位毫秒,越小越快)
+touchDown x,y 
+while y  hy  
+y=y-speed上划用-,下划用+
+Delay sleep
+touchMove x,y
+wend
+touchUp
+End Sub

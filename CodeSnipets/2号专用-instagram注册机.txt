@@ -1,0 +1,67 @@
+//构造一下字符串
+//1.注册用邮箱 6位字符串+@mydir102.com
+//2.用户名（6位）
+//3.密码（6位）
+
+
+//ANSI字符表
+//A-Z 65-90
+//0-9 48-57
+//a-z 97-122
+
+//要产生指定范围的随机整数，请使用以下公式： 
+//Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+
+Dim user_email
+user_email=随机小写字母()&随机小写字母()&随机小写字母()&随机小写字母()&随机小写字母()&随机小写字母()&"@husye.com"
+
+Dim user_name
+user_name=随机小写字母()&随机小写字母()&随机小写字母()&随机小写字母()&随机小写字母()&随机小写字母()
+
+
+Dim password
+password=随机小写字母()&随机小写字母()&随机小写字母()&随机数字()&随机小写字母()&随机小写字母()
+
+TracePrint "user_email : "user_email
+TracePrint "user name is : "user_name
+TracePrint "password : "password
+
+
+
+//重新启动instagram
+//
+
+
+
+
+
+EndScript
+
+Function 随机小写字母()
+	Dim ANSI_nbr
+	Dim 最大值=122
+	Dim 最小值=97
+	ANSI_nbr=Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+	TracePrint(ANSI_nbr)
+	随机小写字母= Chr(ANSI_nbr)
+	TracePrint "随机产生小写字母 ",Chr(ANSI_nbr)
+End Function
+
+Function 随机数字()
+	Dim ANSI_nbr
+	Dim 最大值=57
+	Dim 最小值=48
+	ANSI_nbr=Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+	TracePrint(ANSI_nbr)
+	随机小写字母= Chr(ANSI_nbr)
+	TracePrint "随机产生数字 ",Chr(ANSI_nbr)
+End Function
+Function 随机大写字母()
+	Dim ANSI_nbr
+	Dim 最大值=90
+	Dim 最小值=65
+	ANSI_nbr=Int((最大值 - 最小值 + 1) * Rnd() + 最小值)
+	TracePrint(ANSI_nbr)
+	随机小写字母= Chr(ANSI_nbr)
+	TracePrint "随机产生大写字母 ",Chr(ANSI_nbr)
+End Function

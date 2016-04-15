@@ -1,0 +1,37 @@
+Dim x,y
+Dim gao,kuan
+gao=GetScreenY()
+kuan=GetScreenX()
+Dim flag1,flag2,flag3,flag4
+
+//连续判断五个点是不是全都是白色，
+//若都是白色 ，则为白色空白
+
+//点1
+x=1/16*kuan
+y=4/25*gao
+TracePrint "点1： 坐标X：",x," 坐标Y",y," 颜色值：",(GetPixelColor(x,y))
+flag1=GetPixelColor(x,y)
+
+
+//点2
+x=2/16*kuan
+y=4/25*gao
+TracePrint "点2： 坐标X：",x," 坐标Y",y," 颜色值：",(GetPixelColor(x,y))
+flag2=GetPixelColor(x,y)
+//点3
+x=1/16*kuan
+y=9/50*gao
+TracePrint "点3： 坐标X：",x," 坐标Y",y," 颜色值：",(GetPixelColor(x,y))
+flag3=GetPixelColor(x,y)
+//点4
+x=2/16*kuan
+y=9/50*gao
+TracePrint "点4： 坐标X：",x," 坐标Y",y," 颜色值：",(GetPixelColor(x,y))
+flag4=GetPixelColor(x,y)
+
+
+If flag1="FFFFFF" And flag2="FFFFFF"  And flag3="FFFFFF"  And flag4="FFFFFF"  Then
+	TracePrint "我操全是白的"
+End If
+

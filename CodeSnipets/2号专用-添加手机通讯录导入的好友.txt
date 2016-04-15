@@ -1,0 +1,29 @@
+
+//适用联想A936
+//适用情况，当手机导入联系人之后，在新朋友界面会出现很多好友等待添加
+Delay 2500
+For 300
+//添加
+Tap 656, 418
+Delay 2500
+//判断是否直接添加 如果是，则做处理
+	Dim intX,intY
+	For 3
+		FindPic 14,313, 129,346, "Attachment:xinpengyou-1280x720.png","000000",0, 0.8, intX, intY	
+	Next
+	If intX > 0 and intY > 0 Then 
+		TracePrint intX,intY
+		
+		Else 
+		KeyPress "BACK"
+		Delay 2500
+	End If
+TouchDown 656, 418,1
+Delay 2500
+TouchUp 1
+Delay 2500
+Tap 147, 672
+Delay 2500
+
+	
+Next

@@ -1,0 +1,631 @@
+﻿//系统 安卓4.4
+//微信 6.3.15
+//机器 联想A936
+//屏幕分辨率 1280x720
+
+
+
+//读取界面配置，若是点选，则运行摇一摇或者漂流瓶
+Dim run_fn1,run_fn2,run_fn3,run_fn4
+Dim run_fn5,run_fn6,run_fn7,run_fn8
+run_fn1 = ReadUIConfig("运行摇一摇")
+run_fn2 = ReadUIConfig("运行漂流瓶")
+run_fn3 = ReadUIConfig("运行附近人")
+run_fn4 = ReadUIConfig("运行导入通讯录")
+run_fn5 = ReadUIConfig("运行加群好友1")
+run_fn6 = ReadUIConfig("运行加群好友2")
+
+
+Dim kuan= GetScreenX()
+Dim gao=GetScreenY()
+	
+TracePrint "运行摇一摇:   ",run_fn1
+If run_fn1 = True Then 
+	
+	Call 自动摇一摇()
+	
+End If
+TracePrint "运行漂流瓶:   ", run_fn2
+If run_fn2 = True Then 
+	
+	Call 自动漂流瓶()
+	
+	
+End If
+TracePrint "运行附近人:   ", run_fn3
+If run_fn3 = True Then 
+	Call  附近人()
+End If
+
+TracePrint "运行导入通讯录:   ", run_fn4
+If run_fn4 = True Then 
+	Call  导入通讯录()
+End If
+
+TracePrint "运行加群好友1:   ", run_fn5
+
+If run_fn5 = True Then 
+	TracePrint "k开始添加指定群的好友"
+	Call  指定群()
+End If
+TracePrint "运行加群好友2:   ", run_fn6
+
+If run_fn6 = True Then 
+TracePrint "添加所有群的好友"
+	Call  所有群()
+End If
+EndScript
+
+
+//1-自动摇一摇
+Function 自动摇一摇()
+//重新启动微信
+Delay 3000
+KeyPress "Home"
+Delay 5000
+RunApp  "com.tencent.mm"
+Delay 15000
+//进入摇一摇界面
+RunApp "com.tencent.mm", ".plugin.shake.ui.ShakeReportUI" //进入摇一摇
+Delay 5000
+For 20
+	Call Shake()
+	Delay 10000
+//点击摇出来的结果	
+	Tap 260,914
+	Delay 3000
+	Dim kuan= GetScreenX()
+	Dim gao=GetScreenY()
+	Dim x=0,y=0,n=1
+	Dim page="" //页面标识符
+	Dim  文件名="Attachment:dzh.png"
+	Dim RC=0
+
+	RC = 找图(文件名, 0, 0, kuan, gao)
+	TracePrint "在line 208 运行 找图程序 返回码RC=",RC
+	If RC < 0 Then 
+		TracePrint "出错了 RC:",RC
+	Else 
+		InputText "你好"
+		Delay 3000
+		Tap 663, 92
+		Delay 3000
+		KeyPress "BACK"
+		Delay 3000
+	End If
+	
+Next
+
+
+End Function
+
+//2-自动漂流瓶
+Function 自动漂流瓶()
+//设置界面，用户输入文字，用于写在漂流瓶中的文字
+Dim text1 = ReadUIConfig("输入框1")
+Dim 退出=false
+
+Do Until 退出 = true
+//重新启动微信
+KeyPress "Home"
+Delay 5000
+RunApp  "com.tencent.mm"
+Delay 15000
+RunApp "com.tencent.mm", ".plugin.bottle.ui.BottleBeachUI"
+Delay 5000
+//点击捞瓶子
+Tap 119, 1178
+Delay 3000
+//检测是否用完今天额度
+If CmpColorEx("183|714|AF6D18,535|714|AF6D18,188|656|D5AA69,535|661|D1A461,357|692|B97D2D", 0.9) = 1 Then
+	ShowMessage "今天已经用完所有的瓶子"
+	TracePrint "今天已经用完所有的瓶子"
+	退出 = true
+Else 
+	ShowMessage "开始扔瓶子"
+	TracePrint "开始扔瓶子"
+	Delay 3000
+	Tap 47, 1228
+	Delay 3000
+	InputText text1
+	Delay 3000
+	Dim kuan= GetScreenX()
+	Dim gao=GetScreenY()
+	Dim x=0,y=0,n=1
+	Dim page="" //页面标识符
+//下面的总找不到尝试一下
+	For 3
+		FindPic 0, 0, kuan, gao, "Attachment:rcq.png", "000000", 0, 0.8, x, y
+	Next
+	If x > 0 and y > 0 Then 
+		TracePrint x, " ", y
+		Else 
+		TracePrint "找不到文字 扔出去, 报错退出"
+		EndScript
+	End If
+	Delay 3000
+	Tap x, y
+	Delay 5000
+	End If	
+Loop
+ 
+
+
+End Function
+
+//3-附近人打招呼
+Function 附近人()
+//重新启动微信
+	Delay 3000
+	KillApp  "com.tencent.mm"
+	Delay 5000
+	RunApp  "com.tencent.mm"
+	Delay 15000
+//进入附近人界面
+	RunApp "com.tencent.mm",".plugin.nearby.ui.NearbyFriendsUI"
+	//RunApp "com.tencent.mm", ".plugin.nearby.ui.NearbyFriendsIntroUI"
+	Delay 3000
+//选择查看类型：女生，男生 ，所有人
+	Dim NearbyFriends=ReadUIConfig("NearbyFriends")
+	Select Case NearbyFriends
+		Case 0
+			Tap 667, 96
+			Delay 3000
+			Tap 543, 193
+			Delay 5000
+		Case 1
+			Tap 667, 96
+			Delay 3000
+			Tap 499, 293
+			Delay 5000
+		Case 2
+			Tap 667, 96
+			Delay 3000
+			Tap 502, 380
+			Delay 5000
+			
+	End Select
+//点击开始查看
+	//采用NearbyFriendsUI 不需要点击和确定按钮
+	//Tap 349,746
+	//Delay 3000
+//点击确定
+	
+	//Tap 542, 847
+	//Delay 5000
+//开始循环
+
+	Dim x=0,y=0,n=1	
+	Dim 翻页=0
+	Delay 3000
+	Do Until 翻页 > 5
+//第1个附近人
+		y = Int(gao * 3 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第2个附近人
+		y = Int(gao * 5 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第3个附近人	
+		y = Int(gao * 7 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第4个附近人	
+		y = Int(gao * 9 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第5个附近人
+		y = Int(gao * 11 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第6个附近人
+		y = Int(gao * 13 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第7个附近人
+		y = Int(gao * 15 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第8个附近人
+		y = Int(gao * 17 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//第9个附近人
+		y = Int(gao * 19 / 20)
+		x = Int(kuan / 2)
+		Call 加朋友(x, y)
+//翻页
+	Call 滑动(100,int(gao*19/20),int(gao*3/20),100,200)	
+	翻页 = 翻页 + 1
+	Delay 3000
+	Loop
+	
+End Function
+
+//4-导入通讯录
+Function 导入通讯录()
+//重新启动微信
+	Delay 3000
+	KillApp "com.tencent.mm"
+
+	Delay 5000
+	RunApp  "com.tencent.mm"
+	Delay 15000
+//查看手机通讯录
+	RunApp "com.tencent.mm",".ui.bindmobile.MobileFriendUI" 
+//添加手机联系人
+	Dim RC,x,y
+	Dim kuan = GetScreenX()
+	Dim gao = GetScreenY()
+//根据用户配置 确定循环数
+	Dim 翻页数=ReadUIConfig("通讯录下拉框1")*10
+	Dim i=0
+
+Do Until i > 翻页数
+//第1个通讯录好友
+		y = Int(gao * 3 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第2个通讯录好友
+		y = Int(gao * 5 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第3个通讯录好友	
+		y = Int(gao * 7 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第4个通讯录好友	
+		y = Int(gao * 9 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第5个通讯录好友
+		y = Int(gao * 11 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第6个通讯录好友
+		y = Int(gao * 13 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第7个通讯录好友
+		y = Int(gao * 15 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第8个通讯录好友
+		y = Int(gao * 17 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//第9个通讯录好友
+		y = Int(gao * 19 / 20)
+		x = Int(kuan / 2)
+		Call 导入加好友(x, y)
+//翻页
+	If 翻页数 > 0 Then 
+		TracePrint "翻页"
+		Call 滑动(100, Int(gao * 19 / 20), Int(gao * 3 / 20), 100, 200)	
+	End If
+	i=i+1
+Loop
+
+
+	
+
+
+End Function
+
+//5-添加指定群的好友
+Function 指定群()
+//给用户提示，让用户进入群聊
+Delay 20000
+ShowMessage "请进入需要添加的微信群"
+Delay 20000
+ShowMessage "点进聊天成员列表　就是左上角的小白人的图标"
+Delay 20000
+ShowMessage "稍等一会就回开始自动添加朋友了"
+Delay 20000
+//检查是否是在正确的位置
+If CmpColorEx("624|75|1AC045,148|192|C5C5C5,52|189|FFFFFF", 0.9) = 0 Then	
+	TracePrint "不在正确位置，报错，退出，请重新启动"
+	EndScript
+End If
+
+//开始循环 添加一个群内500个好友
+For 50
+	 
+//开始添加每个成员列表
+	Dim kuan = GetScreenX()
+	Dim gao = GetScreenY()
+	
+	dim x = Int(kuan / 2)
+//第1个
+	dim y= Int(5*gao/20)
+	Call 导入加好友(x, y)
+//第2
+	y= Int(7*gao/20)
+	Call 导入加好友(x, y)
+//3
+	y= Int(9*gao/20)
+	Call 导入加好友(x, y)
+//4
+	y= Int(11*gao/20)
+	Call 导入加好友(x, y)
+//5
+	y= Int(13*gao/20)
+	Call 导入加好友(x, y)
+//6
+	y= Int(15*gao/20)
+	Call 导入加好友(x, y)
+//7
+	y= Int(17*gao/20)
+	Call 导入加好友(x, y)
+//8
+	y= Int(19*gao/20)
+	Call 导入加好友(x, y)
+//翻页
+	TracePrint "执行翻页"
+	Call 滑动(100, Int(gao * 19 / 20), Int(gao * 3 / 20), 100, 200)
+
+Next
+End Function
+
+
+//6-添加所有群的好友
+Function 所有群()
+  	Dim i,intX,intY
+  	Dim MyArray,RC_X,RC_Y
+  	Dim kuan=GetScreenX()
+  	Dim gao=GetScreenY()
+  	Dim RC=0
+    Dim 翻页数 = ReadUIConfig("下拉框1")
+//  读用户配置 
+//	选项=翻页数，选项0则不翻页 选项1则翻页一次			
+	TracePrint 翻页数
+//重新启动微信   
+	Delay 3000
+	KillApp "com.tencent.mm"
+
+	Delay 5000
+	RunApp  "com.tencent.mm"
+	Delay 15000
+	i=0
+//循环体开始
+Do Until i > 翻页数
+//	进入群聊列表
+	KeyPress "HOME"
+	Delay 5000
+    RunApp "com.tencent.mm", ".ui.contact.ChatroomContactUI"
+    Delay 5000
+//需要翻页?
+	If 翻页数 > 0 Then 
+		TracePrint "执行翻页"
+//翻页几次
+		For 翻页数
+			 
+			Call 滑动(100,int(gao*19/20),int(gao*3/20),100,200)	
+			
+		Next	
+	End If
+//添加群聊 从1到10个
+//第一个群聊 488, 246
+Call 加群聊(488, 246)
+	 
+Call 加群聊(511,326)
+Call 加群聊(512,432)
+Call 加群聊(505,532)
+Call 加群聊(535,661)
+Call 加群聊(573,773)
+Call 加群聊(578,858)
+Call 加群聊(570,984)
+Call 加群聊(515,1089)
+i=i+1
+Loop
+	
+	 
+	 
+
+//循环体结束
+End Function
+
+//Utilities 
+
+Sub 加群聊(intX, intY)
+	Dim RC,MyArray,RC_X,RC_Y
+	Tap intX, intY
+		Delay 3000
+	Dim 文件名="Attachment:2dudes.png"	
+	RC = 找图Ex(文件名, 0, 0, kuan, gao)
+	If RC <> -1 Then  
+	//进入群聊，进入成员列表
+		TracePrint "找到　",文件名," 返回RC ",RC
+		MyArray = Split(RC, "|")   
+		//下面这句将字符串转换成数值   
+		RC_X = CLng(MyArray(0)) : RC_Y = CLng(MyArray(1))
+		//群聊聊天信息页
+		Tap RC_X, RC_Y
+		//等系统反应
+		Delay 3000
+		//翻页
+		Rem 找全部群成员
+		Call 滑动(100, Int(gao * 19 / 20), Int(gao * 3 / 20), 100, 200)
+		//等系统反应
+		Delay 3000
+		//找图 全部群成员
+		文件名="Attachment:qbqcy.png"	
+		RC = 找图Ex(文件名, 0, 0, kuan, gao)
+		If RC <> -1 Then 
+		 	TracePrint "找到　",文件名," 返回RC ",RC
+			MyArray = Split(RC, "|")
+			//下面这句将字符串转换成数值   
+			RC_X = CLng(MyArray(0)) : RC_Y = CLng(MyArray(1))
+			Tap RC_X, RC_Y
+			//点击全部群成员
+			Delay 5000
+			//等待系统反应
+			Call 指定群()
+			//	进入群聊列表
+			Delay 5000
+    		RunApp "com.tencent.mm", ".ui.contact.ChatroomContactUI"
+    		Delay 5000
+		Else 
+			TracePrint "没有找到全部群成员"
+			Goto 找全部群成员
+		End If
+	Else
+		TracePrint "点击之后没反应 ，掠过"
+	End If	
+End Sub
+
+Function 导入加好友(intX, intY)
+//第一次点击
+	Dim SayHi =  ReadUIConfig("sayhitext")
+	Delay 3000
+	Tap intX, intY
+	Delay 3000
+//检验点击之后　返回页面
+//找图：添加到通讯录，发消息，如果都找不到则为无反应的联系人 退出
+//1-查找　添加到通讯录	
+	Dim RC	
+	Dim MyArray,RC_X,RC_Y
+	Dim 文件名="Attachment:tjdtxl.png"	
+	RC = 找图Ex(文件名, 0, 0, kuan, gao)
+	//Delay 3000
+	If RC <> -1 Then 
+//  找到，添加好友
+		TracePrint "找到　",文件名," 返回RC ",RC
+		MyArray = Split(RC, "|")   
+		//下面这句将字符串转换成数值   
+		RC_X = CLng(MyArray(0)) : RC_Y = CLng(MyArray(1))
+		//点击图片坐标
+		Tap RC_X, RC_Y
+		
+		//等待返回页面
+		Delay 3000
+		
+		
+		Dim flag_color = GetPixelColor(622,84)
+		If flag_color <> "1AC045" Then 
+		 Delay 3000
+		End If
+		If flag_color = "1AC045" Then 
+		//如果需要发送验证
+			InputText SayHi
+			Delay 1000
+			Tap 622, 84
+			Delay 3000
+		End If
+		KeyPress "BACK"
+		Delay 3000
+	ElseIf RC = -1 Then
+//2-查找　发消息字样（已经是好友了） 	
+		文件名="Attachment:fxy.png"
+		RC = 找图Ex(文件名, 0, 0, kuan, gao)
+		Delay 3000
+		//找到发消息字样　就按回退
+		If RC <> -1 Then 
+			KeyPress "BACK"
+			Delay 3000
+		Else 
+			TracePrint "没有找到任何回馈　略过"
+//3-查找1和2都失败了，这个可能通讯录好友点击之后没有反应　bypass			
+		End If
+	End If
+
+End Function
+
+Function 加朋友(intX, intY)
+	Tap intX, intY
+	Delay 3000
+	Dim kuan = GetScreenX()
+	Dim gao = GetScreenY()
+	Dim 文件名="Attachment:dzh.png"
+	Dim RC
+	RC = 找图(文件名, 0, 0, kuan, gao)
+	TracePrint "在line217 运行 找图程序 返回码RC=",RC
+	If RC < 0 Then  
+		KeyPress "BACK"
+		Delay 3000
+	Else 
+//找到打招呼 进入打招呼流程
+		Delay 3000
+		Dim SayHi =  ReadUIConfig("sayhitext")
+		InputText  SayHi
+		文件名 = "Attachment:fasong.png"
+		
+		RC = 找图(文件名, 0, 0, kuan, gao)
+		TracePrint "在line 202 运行 找图程序 返回码RC=",RC
+		If RC < 0 Then 
+			EndScript
+		End If
+		文件名="Attachment:jwpy.png"
+		RC = 找图(文件名, 0, 0, kuan, gao)
+		TracePrint "在line 208 运行 找图程序 返回码RC=",RC
+		If RC < 0 Then 
+			EndScript
+		End If
+		For 3
+			KeyPress "BACK"
+			Delay 3000
+		Next
+	End If
+	
+	
+ 
+End Function
+
+Sub 滑动(x,y,hy,speed,sleep)//参数分别为：x坐标,y坐标,y结束时的坐标(即滑动到的第二点时y点坐标)，移动速度(单位像素,越大越快),停顿时间(单位毫秒,越小越快)
+touchDown x,y 
+while y > hy 
+y=y-speed//上划用"-",下划用"+"
+Delay sleep
+touchMove x,y
+wend
+touchUp
+End Sub
+
+
+Function 找图(文件名, x1, y1, x2, y2)
+//找图　
+//找到就点击　
+//找不到ＲＣ＝－１
+	Dim intX,intY
+	//文件名="Attachment:dzh.png" 这样的格式
+	For 2
+		FindPic x1, y1, x2, y2,文件名 , "000000", 0, 0.8, intX,intY
+	Next
+	If intX > 0 and intY > 0 Then 
+    	TracePrint "找到文字 ",文件名," 运行脚本"
+		TracePrint intX, " ", intY
+		找图 = 0
+		Delay 3000
+		Tap intX, intY
+		Delay 3000
+	Else 
+		TracePrint "找不到图片 ",文件名," 报错退出"
+		找图=-1
+	End If
+	
+	
+End Function
+
+Function 找图Ex(文件名, x1, y1, x2, y2)
+//找图
+//找到图，返回坐标
+//找不到，则返回-1
+	Dim intX,intY
+	//文件名="Attachment:dzh.png" 这样的格式
+	For 2
+		FindPic x1, y1, x2, y2,文件名 , "000000", 0, 0.9, intX,intY
+	Next
+	If intX > 0 and intY > 0 Then 
+    	TracePrint "找到文字 ",文件名," RC=坐标值"
+		TracePrint intX, " ", intY
+		找图Ex = intX&"|"&intY
+		Delay 3000
+	Else 
+		TracePrint "找不到图片 ",文件名," RC=-1"
+		找图Ex=-1
+	End If
+	
+	
+End Function
+

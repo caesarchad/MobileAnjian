@@ -1,0 +1,284 @@
+Dim username, pass
+Dim n=11
+Dim intX,intY
+Dim gao=GetScreenY()
+Dim kuan=GetScreenX()
+Dim filename
+//call function name
+Dim entryname
+
+//用户名 +密码
+Dim account(),passwrd()
+
+account(1)="artreviewofamerica"
+passwrd(1)="zaq12wsx"
+
+account(2)="sf888ys01"
+passwrd(2)="zaq12wsx"
+
+account(3)="xysc010"
+passwrd(3)="7890uiophjklvbnm"
+
+account(4)="cwftw887766"
+passwrd(4)="7890uiophjklvbnm"
+
+account(5)="jhartzh"
+passwrd(5)="7890uiophjklvbnm"
+
+account(6)="ys888sf01"
+passwrd(6)="7890uiophjklvbnm"
+
+account(7)="sqyishu"
+passwrd(7)="7890uiophjklvbnm"
+
+account(8)="charlesmoter"
+passwrd(8)="7890uiophjklvbnm"
+
+account(9)="ku78052"
+passwrd(9)="7890uiophjklvbnm"
+
+account(10)="slruso66"
+passwrd(10)="7890uiophjklvbnm"
+
+account(11)="cdqy8888"
+passwrd(11)="7890uiophjklvbnm"
+
+account(12)="jxhl20002"
+passwrd(12)="7890uiophjklvbnm"
+
+account(13)="hera1991tw"
+passwrd(13)="7890uiophjklvbnm"
+
+account(14)="pshl2008"
+passwrd(14)="7890uiophjklvbnm"
+
+account(15)="sino0art"
+passwrd(15)="zaq12wsx"
+
+account(16)="k7ingowner"
+passwrd(16)="zaq12wsx"
+
+//运行之前 必须先推出当前
+Do until n>100
+username=account(n)
+pass=passwrd(n)
+If username= null then
+	TracePrint "username is null"
+	EndScript
+End If
+TracePrint username," ",pass
+Call Main(username,pass)
+
+n=n+1
+Loop
+
+
+EndScript
+
+Function dly()
+	Delay 5000
+End Function
+
+Function Main(username,pass)
+//close Wechat	
+KillApp "com.tencent.mm"
+Call dly()
+//start Wechat
+RunApp "com.tencent.mm"
+Call dly()
+RunApp "com.tencent.mm",".ui.account.LoginUI"
+Call dly()
+InputText username
+Call dly()
+//点击 输入密码的地方
+Touch 241,319,500
+Call dly()
+InputText pass
+Call dly()
+//点击 登录
+Touch 351,483,500
+
+//等系统反应登录
+For 20
+	Call dly()
+Next
+
+
+
+//查找大号
+Touch 525,89,200
+Call dly()
+InputText "shuang7art"
+Call dly()
+Touch 77,300,200
+Call dly()
+//进入了和一鸣的聊天界面，点击右上角白人
+Tap 666,87 
+Call dly()
+//聊天信息 
+Touch 100,260,200
+Call dly()
+//进入个人相册
+
+Touch 123,710,200
+Call dly()
+
+//点击四个文章，将他们收藏起来
+Call 收藏(220,929)
+Call 收藏(235,1058)
+Call 收藏(228,1161)
+Call 收藏(239,1239)
+
+Call 群聊列表()
+ 
+
+
+
+
+//给11个群聊 发图文
+Call 发图文(64,243)
+Call 发图文(51,333)
+Call 发图文(71,455)
+Call 发图文(80,555)
+Call 发图文(56,666)
+Call 发图文(65,780)
+Call 发图文(68,870)
+Call 发图文(67,969)
+Call 发图文(91,1097)
+Call 发图文(61,1184)
+Call 发图文(317,1271)
+
+
+
+
+
+
+For 15
+	Call dly()
+Next
+
+
+
+//退出当前账号
+Call dly()
+RunApp "com.tencent.mm",".plugin.setting.ui.setting.SettingsUI"
+Call dly()
+FindPic 0,0, int(kuan/6), gao , "Attachment:tuichu-1280x720.png", 0 , 0, 0.9, intX, intY 
+Call dly()
+TracePrint  intX,intY
+Tap intX,intY
+Call dly()
+//选择退出当前账号
+Tap 299,606
+Call dly()
+//确认推出
+Tap 534,751
+For 5
+Call dly()
+Next
+End Function
+
+
+Function 收藏(intX,intY)
+//进入图文
+Touch intX,intY,200
+Call dly()
+Touch 165,293,200
+Call dly()
+//等待加载图文
+Delay 6000
+//收藏该图文
+Touch 664,87,200
+Call dly()
+Touch 339,412,200
+Call dly()
+Call 检查弹出窗口()
+KeyPress "BACK"
+Call dly()
+KeyPress "BACK"
+Call dly()
+
+	
+End Function
+
+
+Function 发图文(intX,intY)
+	Call dly()
+	Touch intX,intY,200
+	Call dly()
+	Call dly()
+	Call dly()
+	//点击加号
+	Touch 656,1219,200
+	Call dly()
+	//第一个收藏
+	Call 发送我的收藏(121,346)
+	//第二个收藏
+	Call 发送我的收藏(119,600)
+	//第三个收藏
+	Call 发送我的收藏(109,932)
+	
+	//第四个收藏
+	//Call 发送我的收藏(88,1215)
+		
+	
+	Call 群聊列表()
+	
+End Function
+
+Function 群聊列表()
+	//群聊列表
+	Call dly()
+	RunApp "com.tencent.mm",".ui.contact.ChatroomContactUI"
+	Call dly()
+End Function
+
+
+Function 发送我的收藏(intX,intY)
+	
+		//点击 我的收藏
+		//使用找图手段查找 坐标
+		dim filename="Attachment:myfavrt-1280x720.png"
+		dim entryname = "发送我的收藏"
+		Call F11(filename,0,600,720,1280,entryname)
+		
+		//点击图文坐标
+		Touch intX,intY,200
+		Call dly()
+		//确定发送
+		Touch 544,805,200
+		//等待系统
+		Delay 4000
+		
+End Function
+
+Function 检查弹出窗口()
+	Dim intX,intY
+	Delay 2000
+	For 3
+		FindPic 113,470,375,537 , "Attachment:ruhechakanshoucang-1280x720.png", 0 , 0, 0.9, intX, intY
+	next
+	if intX>0 and intY>0
+			Touch 543,824,200
+			Delay 3000
+	End If 
+End Function
+
+Function F11(pic_path,x1,y1,x2,y2,callfunc_name)
+//F11 "发送我的收藏"
+//pic--the name of the pic, exmaple "Attachment:123.png"
+//callfunc---the name of the evoking function 
+	Dim f11_X , f11_Y
+	For 3
+		FindPic x1,y1,x2,y2,pic_path,0,0,0.9,f11_X,f11_Y
+	Next
+	If f11_X>0 and f11_Y>0 Then
+		Tap f11_X,f11_Y
+		Delay 5000
+			
+	Else
+		TracePrint("找不到我的收藏的图标，报错推出")
+		TracePrint("Call Function Name："&callfunc_name)
+		EndScript
+	End If
+End Function
