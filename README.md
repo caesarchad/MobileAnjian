@@ -6,7 +6,8 @@ Anjian is a Chinese scripting tool which enable people to write scripts , and ru
 ## Components
 | Index | Name | Status |
 | --- | --- |---------------|
-| No.1 | Fans MasterV1.0 点赞神器v1 | Online  已发布 |
+| No.1 | Fans MasterV1.0 加粉神器v1 | Online  已发布 |
+| No.2 | Like MasterV1.0 点赞神器v1 | In dev  开发中 |
 
 ## Code Status
 
